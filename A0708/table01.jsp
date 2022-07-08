@@ -5,7 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>table01</title>
-	<style>
+	<style type="text/css">
 		body {background-color: aliceblue;}
         table {width: 500px;  }
         table tr th{ border: 1px solid #666; height: 30px;}
@@ -13,8 +13,9 @@
     </style>
 </head>
 <body>
-	<h1>테이블</h1>
-	<form action = "join.jsp">
+	<h1>회원가입 테이블</h1>
+	<form action = "join.jsp" method="post">
+	<!-- submit 버튼 클릭 시 이동되는 페이지 : join.jsp -->
 	<table>	
         <tr>
             <th>아이디</th>
