@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
+
+<%@ page errorPage="error.jsp" %>
+
+
     
 <%!
 	String str = "hi";
@@ -15,10 +19,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>NewFile.jsp</title>
 <style> body {background-color: bisque;} </style>
 </head>
 <body>
+
 
 <%
 	int n1 = 10;
@@ -47,7 +52,12 @@
 <%
 	String name = "gildong";
 %>
-<%=name %>
+<%=name +"<hr>"%>
 
+<!-- 에러 띄우기 -->
+<%-- = 4/0 --%>
+
+<a href="sub.jsp">서브페이지</a>
+<%@ include file="footer.jsp" %>
 </body>
 </html>
