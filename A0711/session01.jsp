@@ -19,6 +19,8 @@
 %>
 
 <a href="session.jsp?name=<%=name %>">페이지 이동</a>
-
+<!-- 
+<a href="session.jsp?name=<%=URLEncoder.encode(name, "UTF-8")%>">session</a>
+ -->
 </body>
 </html>
