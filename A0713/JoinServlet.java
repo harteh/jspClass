@@ -23,8 +23,8 @@ public class JoinServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charsetUTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		
 		//값 받아오기
 		String name = request.getParameter("uName");
@@ -34,7 +34,7 @@ public class JoinServlet extends HttpServlet {
 		String pass2 = request.getParameter("pass2");
 		
 		String email1 = request.getParameter("email1");
-		String email2 = request.getParameter("email3");
+		String email2 = request.getParameter("email2");
 		
 		String postNum = request.getParameter("postNum");
 		String addr1 = request.getParameter("addr1");

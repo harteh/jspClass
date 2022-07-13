@@ -16,6 +16,15 @@
         }
     </style>
     <script>
+    	function setEmail() {
+			//선택한 값 저장할 곳
+			var email2 = document.getElementById("email2");
+			//메일 주소 선택할 곳
+			var email3 = document.getElementById("email3");
+			
+			email2.value = email3.value; 
+		}
+    	
         function chk(){
             //주민번호 체크
             var pNum1 = addMem.persNum1.value;
@@ -25,6 +34,7 @@
                 return false;
             }
 
+
             //비밀번호 체크
             var pw1 = addMem.pass1.value;
             var pw2 = addMem.pass2.value;
@@ -33,12 +43,15 @@
                 alert("비밀번호가 틀렸습니다. ");
                 return false;
             }
-
-            //메일주소 자동입력
-            var email = addMem.email2.value;        //선택값이 들어갈 자리
-            var chkEmail = addMem.email3.value;     //선택한 값
-
-            email = chkEmail;
+            
+            //전화번호
+            var tel = addMem.tel.value;
+            if(tel.indexOf("-") == -1){
+	    		alert("'-'을 포함해서 입력하세요");
+            	addMem.tel.focus();
+	        	return false;
+            }
+            
         }
     </script>
 </head>
@@ -57,23 +70,24 @@
         </tr>
         <tr>
             <th>아이디</th>
-            <td><input type="text" name="uid"></td>
+            <td><input type="text" name="uid" required></td>
         </tr>
         <tr>
             <th>비밀번호</th>
-            <td><input type="password" name="pass1"></td>
+            <td><input type="password" name="pass1" required></td>
         </tr>
         <tr>
             <th>비밀번호 확인</th>
-            <td><input type="password" name="pass2"></td>
+            <td><input type="password" name="pass2" required></td>
         </tr>
         <tr>
             <th>이메일</th>
             <td>
                 <input type="text" name="email1"> @ 
-                <input type="text" name="email2" value="">
-                <select name="email3">
-                    <option value="naver.com" selected>naver.com</option>
+                <input id="email2" type="text" name="email2" value="">
+                <select id="email3" name="email3" onchange="setEmail()">
+                	<option value="" selected disabled>메일주소선택</option> 
+                    <option value="naver.com">naver.com</option>
                     <option value="nate.com">nate.com</option>
                     <option value="google.com">gmail.com</option>
                 </select>
@@ -95,9 +109,9 @@
             <th>직업</th>
             <td>
                 <select name="job" multiple>
-                    <option value="1">학생</option>
-                    <option value="2">컴퓨터/인터넷</option>
-                    <option value="3">언론</option>
+                    <option value="학생">학생</option>
+                    <option value="컴퓨터/인터넷">컴퓨터/인터넷</option>
+                    <option value="언론">언론</option>
                 </select>
             </td>
         </tr>
