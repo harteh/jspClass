@@ -19,7 +19,8 @@ public class ser01 extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		RequestDispatcher dis = request.getRequestDispatcher("serRead.jsp");
+		RequestDispatcher dis 
+			= request.getRequestDispatcher("serRead.jsp");
 		dis.forward(request, response);
 	}
 
