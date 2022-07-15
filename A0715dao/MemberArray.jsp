@@ -16,11 +16,9 @@
 	//모든 회원 정보 가져옴
 	MemberDAO mdao = new MemberDAO();
 	//가변길이인 vector를 이용하여 데이터를 저장한 후
-	Vector<MemberBean> vec=null; 
-	vec = mdao.allSelectMember();
+	Vector<MemberBean> vec = mdao.allSelectMember();
 	
 	MemberBean mb=null;
-	
 %>
 
 	<h2>전체 회원 목록</h2>
@@ -35,19 +33,22 @@
 <%
 	for(int i=0; i<vec.size(); i++){
 		mb = vec.get(i);
-
 %>		
 	<tr height="50">
-		<td width="350" align="center"><%=mb.getId() %></td>
+		<td width="350" align="center">
+			<a href="MemberIn.jsp?id=<%=mb.getId() %>"><%=mb.getId() %></a>
+		</td>
 		<td width="350" align="center"><%=mb.getEmail() %></td>
 		<td width="350" align="center"><%=mb.getHobby() %></td>
 		<td width="350" align="center"><%=mb.getJob() %></td>
-		
 	</tr>
+		
 <%
 	}
 %>
 	</table>
 
+<hr>
+<button onclick="location.href='memberJoin.jsp'">회원가입 폼</button>
 </body>
 </html>

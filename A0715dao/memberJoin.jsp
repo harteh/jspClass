@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>MemberJoin</title>
+	<title>memberJoin</title>
 </head>
 
 <body bgcolor="aliceblue">

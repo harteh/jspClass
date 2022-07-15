@@ -58,7 +58,6 @@ public class MemberDAO {
 
 	//전체 회원 목록 출력
 	public Vector<MemberBean> allSelectMember() {
-		
 		Vector<MemberBean> getlist = new Vector<>();
 		
 		try {
@@ -92,10 +91,113 @@ public class MemberDAO {
 		}
 		
 		return getlist;
-		
 	}
 	
 	
+	// 특정 회원 정보 조회
+	public MemberBean oneMember(String id) {
+
+		MemberBean bean = new MemberBean();
+		
+		try {
+			getCon();
+			String sql = "select * from mem where id= ?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				bean.setId(rs.getString(1));
+				bean.setPass1(rs.getString(2));
+				bean.setEmail(rs.getString(3));
+				bean.setTel(rs.getString(4));
+				bean.setHobby(rs.getString(5));
+				bean.setJob(rs.getString(6));
+				bean.setAge(rs.getString(7));
+				bean.setInfo(rs.getString(8));
+			}
+			con.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return bean;
+	}
 	
+	
+	//받아온 id의 패스워드 반환
+	public String getPass(String id) {
+		String pass="";
+		try {
+			getCon();
+			
+			String sql = "select pass1 from mem where id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				pass = rs.getString(1);
+			}
+			
+			con.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return pass;
+	}
+	
+	
+	//회원정보 수정하기
+	public void updateMember(MemberBean mbean) {
+		
+		try {
+			getCon();
+			String sql = "update mem set "
+					+ "email = ?, tel=?, hobby=?, age=?, info=? "
+					+ "where id=?";
+
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, mbean.getEmail());
+			pstmt.setString(2, mbean.getTel());
+			pstmt.setString(3, mbean.getHobby());
+			pstmt.setString(4, mbean.getAge());
+			pstmt.setString(5, mbean.getInfo());
+			pstmt.setString(6, mbean.getId());
+			
+			pstmt.executeUpdate();
+			con.close();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	//회원 탈퇴
+	public void deleteMember(String id) {
+		
+		getCon();
+		try {
+			String sql = "delete from mem where id=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			pstmt.executeUpdate();
+			con.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
