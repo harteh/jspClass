@@ -1,5 +1,14 @@
 # jspClass
 jsp를 이용하여 웹 페이지 만들기
+
+## 커넥션 풀을 이용한 DB연결
+- [DBCP](https://github.com/harteh/jspClass/blob/429b756e9ff40c9ab03ba367a49a146de55fec66/A0718dbcp/BoardDAO.java#L19)
+  
+  
+## 페이징 처리
+- [페이징 jsp](https://github.com/harteh/jspClass/blob/429b756e9ff40c9ab03ba367a49a146de55fec66/A0718dbcp/BoardList.jsp#L87)
+  
+  
 ## DAO 이용한 학생 관리
 ### [StuDAO](https://github.com/harteh/jspClass/blob/main/Dao0716/StuDAO.java)
 - [DB 연결](https://github.com/harteh/jspClass/blob/4b0dbc9ce7e90de8b5be67ba469f95eb2656ebc7/Dao0716/StuDAO.java#L19)
