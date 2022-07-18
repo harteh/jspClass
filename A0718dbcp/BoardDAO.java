@@ -124,8 +124,25 @@ public class BoardDAO {
 	
 	//전체 게시글 개수 
 	public int getAllCount() {
+		int cntAll =0;
 		
-		return 105;
+		getCon();
+		try {
+			String sql = "select count(*) from board";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				cntAll = rs.getInt(1);
+			}
+			con.close();
+			
+			System.out.println("cntAll:"+ cntAll);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return cntAll;
 	}
 	
 

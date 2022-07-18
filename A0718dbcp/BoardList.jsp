@@ -21,7 +21,7 @@
 <h1>게시판 전체 목록</h1>
 <%
 //페이징
-	int pageSize = 5;	//한 페이지에 보여지는 게시글 수
+	int pageSize = 3;	//한 페이지에 보여지는 게시글 수
 	
 	String pageNum = request.getParameter("pageNum");	//현재 페이지
 	if(pageNum == null){
@@ -41,8 +41,9 @@
 	
 	Vector<BoardBean> vec = bdao.allBoard(startRow, endRow);
 	
+	//내가 보고있는 페이지의 시작번호?? - 게시글목록 no으로 사용..
 	number = count - (currentPage-1) * pageSize;
-			//105 - (3-1)*10 = 75 
+			//27 - (3-1)*10 = 7 
 %>
 
 <table>
@@ -87,31 +88,35 @@
 	count : 전체 게시글 수
 	pageCount : 전체 페이지 수
 	currentPage : 현재 페이지 인덱스 번호
+	pageBlock : 페이징 블럭 수
+	startPage : 보고있는 현재 페에지의 페이지 블럭 시작 번호
 -->
 <div class="paging">
 <%
 	if(count > 0){
+		int pageBlock = 5;
+		
 		int pageCount = count/pageSize + (count % pageSize == 0 ? 0:1);
+		// 19/3 + (1) = 7
 		
 		int  startPage = 1;
-		if(currentPage % 10 != 0){ 	// currentPage 가 11일때
-			startPage = (int)(currentPage/10) *10 +1;	//11
+		if(currentPage % pageBlock != 0){ 	// currentPage 가 6일때
+			startPage = (int)(currentPage/pageBlock) *pageBlock +1;	//7
 		}
-		else { 	// currentPage 가 10일때
-			startPage = (int)((currentPage/10)-1) *10 +1;	//1
+		else { 	// currentPage 가 5일때
+			startPage = (int)((currentPage/pageBlock)-1) *pageBlock +1;	//1
 		}
 		
-		int pageBlock = 10;
-		int endPage = startPage + pageBlock -1;		//11+10-1 =20
+		int endPage = startPage + pageBlock -1;		//7+5-1 =11
 		
 		if(endPage > pageCount){
 			endPage = pageCount;
 		}
 		
 		//이전이라는 하이퍼링크를 만들건지 생각
-		if(startPage > 10){
+		if(startPage > pageBlock){
 		%>
-			<a href="BoardList.jsp?pageNum=<%=startPage-10 %>">[이전]</a>
+			<a href="BoardList.jsp?pageNum=<%=startPage - pageBlock %>">[이전]</a>
 		<%
 		}
 		for(int i=startPage; i<=endPage; i++){
@@ -122,7 +127,7 @@
 		
 		if(endPage <= pageCount){
 		%>
-			<a href="BoardList.jsp?pageNum=<%=startPage+10 %>">[다음]</a>
+			<a href="BoardList.jsp?pageNum=<%=startPage + pageBlock %>">[다음]</a>
 		<%			
 		}
 	}
