@@ -5,8 +5,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>BoardForm</title>
+	<style type="text/css">
+		h1 {margin-bottom: 30px;}
+	</style>	
 </head>
-<body>
+<body bgcolor="aliceblue">
 
 <h1>글쓰기</h1>
 <form action="BoardWriteForm.jsp">

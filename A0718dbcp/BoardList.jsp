@@ -9,6 +9,8 @@
 	<meta charset="UTF-8">
 	<title>BoardList</title>
 	<style type="text/css">
+		h1 {margin-bottom: 30px;}
+		a {text-decoration: none;}
 		table {width: 700px; border-collapse: collapse; margin-bottom: 20px} 
 		table tr { height: 30px; border-bottom: 1px solid #333;}
 		.title{ font-weight: bold;}
@@ -16,12 +18,12 @@
 		.paging { width: 700px; text-align: center; margin-bottom: 30px;}
 	</style>
 </head>
-<body>
+<body bgcolor="aliceblue">
 
 <h1>게시판 전체 목록</h1>
 <%
 //페이징
-	int pageSize = 3;	//한 페이지에 보여지는 게시글 수
+	int pageSize = 4;	//한 페이지에 보여지는 게시글 수
 	
 	String pageNum = request.getParameter("pageNum");	//현재 페이지
 	if(pageNum == null){
@@ -85,8 +87,10 @@
 </table>
 
 <!-- 페이징 
+	pageSize = 3;	//한 페이지에 보여지는 게시글 수
 	count : 전체 게시글 수
 	pageCount : 전체 페이지 수
+	
 	currentPage : 현재 페이지 인덱스 번호
 	pageBlock : 페이징 블럭 수
 	startPage : 보고있는 현재 페에지의 페이지 블럭 시작 번호
@@ -94,26 +98,26 @@
 <div class="paging">
 <%
 	if(count > 0){
-		int pageBlock = 5;
+		int pageBlock = 3;
 		
 		int pageCount = count/pageSize + (count % pageSize == 0 ? 0:1);
-		// 19/3 + (1) = 7
+		// 13/3 + (1) = 5
 		
 		int  startPage = 1;
-		if(currentPage % pageBlock != 0){ 	// currentPage 가 6일때
-			startPage = (int)(currentPage/pageBlock) *pageBlock +1;	//7
+		if(currentPage % pageBlock != 0){ 	// currentPage 가 4일때
+			startPage = (int)(currentPage/pageBlock) *pageBlock +1;	// 4/3 *3 +1=4
 		}
-		else { 	// currentPage 가 5일때
+		else { 	// currentPage 가 3일때
 			startPage = (int)((currentPage/pageBlock)-1) *pageBlock +1;	//1
 		}
 		
-		int endPage = startPage + pageBlock -1;		//7+5-1 =11
+		int endPage = startPage + pageBlock -1;		//4+3-1 =6
 		
-		if(endPage > pageCount){
+		if(endPage > pageCount){	// 6>5 -> endPage=5 
 			endPage = pageCount;
 		}
 		
-		//이전이라는 하이퍼링크를 만들건지 생각
+		// 페이징처리, 이전,페이지no,다음
 		if(startPage > pageBlock){
 		%>
 			<a href="BoardList.jsp?pageNum=<%=startPage - pageBlock %>">[이전]</a>
@@ -125,7 +129,7 @@
 		<%
 		}
 		
-		if(endPage <= pageCount){
+		if(endPage < pageCount){
 		%>
 			<a href="BoardList.jsp?pageNum=<%=startPage + pageBlock %>">[다음]</a>
 		<%			
