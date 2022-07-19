@@ -83,7 +83,7 @@ public class BoardDAO {
 		try {
 			String sql = "select * from "
 					+ "(select A.*, Rownum Rnum from "
-					+ "(select * from board order by ref desc, re_step asc) A) "
+					+ "(select * from board order by ref desc, re_level asc) A) "
 					+ "where Rnum>=? and Rnum<=?";
 			pstmt= con.prepareStatement(sql);
 			pstmt.setInt(1, start);
@@ -275,6 +275,26 @@ public class BoardDAO {
 			pstmt.setString(1, bean.getSubject());
 			pstmt.setString(2, bean.getContent());
 			pstmt.setInt(3, bean.getNum());
+			
+			pstmt.executeUpdate();
+			con.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	//게시글 삭제 처리
+	public void deleteBoard(int num) {
+		
+		getCon();
+		try {
+			String sql = "delete from board where num=?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
 			
 			pstmt.executeUpdate();
 			con.close();

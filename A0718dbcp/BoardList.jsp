@@ -10,7 +10,7 @@
 	<title>BoardList</title>
 	<style type="text/css">
 		h1 {margin-bottom: 30px;}
-		a {text-decoration: none;}
+		a {text-decoration: none; color: #666;}
 		table {width: 700px; border-collapse: collapse; margin-bottom: 20px} 
 		table tr { height: 30px; border-bottom: 1px solid #333;}
 		.title{ font-weight: bold;}
@@ -23,7 +23,7 @@
 <h1>게시판 전체 목록</h1>
 <%
 //페이징
-	int pageSize = 4;	//한 페이지에 보여지는 게시글 수
+	int pageSize = 5;	//한 페이지에 보여지는 게시글 수
 	
 	String pageNum = request.getParameter("pageNum");	//현재 페이지
 	if(pageNum == null){
@@ -67,11 +67,14 @@
 			<a href="BoardIn.jsp?num=<%=bean.getNum() %>">
 				 <%
 				 	if(bean.getRe_step() > 1){
-				 		for(int j=0; j<(bean.getRe_step()-1) *5; j++){
+				 		for(int j=0; j<(bean.getRe_step()-1) *2; j++){
 				 %>
 				 		&nbsp;
 				 <%
 				 		}
+					%>
+				 		<span>[re]</span>
+					<%
 				 	}
 				 %>
 				 <%=bean.getSubject() %>

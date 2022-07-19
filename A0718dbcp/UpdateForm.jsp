@@ -14,8 +14,6 @@
 		table tr { height: 100%; border-bottom: 1px solid #333; }
 		table tr td:first-child{width: 100px; font-weight: bold; padding: 15px;}
 		table tr td input { margin: auto 5px;}
-		.title{ font-weight: bold;}
-		.title td { text-align: center;}
 	</style>
 </head>
 <body>
@@ -25,7 +23,6 @@
 	
 	BoardDAO bdao = new BoardDAO();
 	BoardBean bean = bdao.oneBoard(num);
-//	BoardBean bean = bdao.oneUpdateBoard(num);
 %>
 <h1>게시글 수정</h1>
 
