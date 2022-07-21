@@ -1,0 +1,54 @@
+1. index.jsp
+	- 시작 페이지
+	- 로딩 시 sendRedirect로 BoardServlet을 호출한다
+	- 호출할때 command값으로 board_list을 가지고 간다.
+
+2. BoardServlet
+	- 페이지에서 넘어오는 command 값을 ActionFactory 로 넘겨준다.
+	- ActionFactory의 getAction 메서드를 호출한다
+	- command 값에 따라 목적에 맞는 클래스 객체를 생성한다.
+	
+3. ActionFactory
+	- 넘어온 command 값에 따라 띄워줄 페이지, 처리를 결정한다.
+	- 싱글톤으로 만들어 외부에서의 접근은 막고, getAction 메서드롤 통해서 접근 할 수 있도록 한다
+
+4. board_list
+	-> BoardListAction 호출
+	-  Forward 방식으로 boardList 페이지로 이동
+		-- requestDispatcher 객체로 접근하여 url은 변경되지 않는다.
+	- BoardDAO도 싱글톤 방식으로 selectAllBoards 메서드만 호출해온다.
+	- DAO에서 게시판 전체 목록을 리턴받아 boardList에 ArrayList로 저장한다.
+
+5. board_write_form
+	- 게시글 등록
+	- js: boardCheck()로 필수 입력값이 입력되었는지 검증한다.
+	- 데이터 입력받아 command 값 board_write 를 가지고 BoardServlet으로 넘어간다.
+	- BoardWriteAction 을 통해 받아온 데이터를 자바빈(BoardVO)에 저장하고 
+	- BoardDAO의 insertBoard 메서드로 DB에 등록한다
+	- 등록 완료 후 BoardListAction를 통해서 전체 글 보기 화면으로 이동시킨다 
+	
+6.  board_view
+	- 게시글 보기
+	- BoardViewAction
+	- num 값을 기준으로 
+	
+7. open_win() 
+	- 글 수정, 삭제 시 비밀번호 검증을 위해서 새창을 띄운다
+	- BoardServlet으로 command 값= 글 번호와 글 비밀번호를 넘겨준다 주어 url로 설정
+	- name 값으로 update / delete 구분한다
+
+	- BoardCheckPassFormAction 를 통해서 boardCheckPass.jsp로 이동 -> 비밀번호 입력 창을 띄운다.
+	- js: passCheck()에서 입력값이 있는지 없는지 검증하고, 
+	- command = board_check_pass 를 통해서 BoardCheckPassAction로 글번호에 해당하는 글의 비밀번호를 입력받은 비밀번호와 동일한지 검증한다
+	
+	- 비밀번호가 맞다면 checkSuccess.jsp로 이동해서 name 값에 따라 수정과 삭제 처리로 연결한다.
+	
+8. BoardUpdateFormAction
+	- 받아온 글번호를 가지고 selectOneBoardByNum메서드로 글을 boardUpdate 페이지에 띄워준다
+	- 수정된 입력값을 가지고 board_update -> BoardUpdateAction 처리
+	
+	- BoardUpdateAction 에서 폼에서 받은 입력값들을 자바빈에 등록하고, 자바빈을 DAO, updateBoard를 통해서 DB에 수정 작업을 한다.
+
+9. BoardDeleteAction
+	- 받아온 글번호를 기준으로 DAO의 deleteBoard 처리를 통해 글 삭제 쿼리를 실행시킨다.
+	
